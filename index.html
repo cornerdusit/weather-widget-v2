@@ -423,14 +423,26 @@
     cacheTime('bangkok', 'Asia/Bangkok', 'time-bkk');
     cacheTime('toronto', 'America/Toronto', 'time-toronto');
 
-    setInterval(() => updateTime('bangkok', 'time-bkk'), 1000);
-    setInterval(() => updateTime('toronto', 'time-toronto'), 1000);
-    setInterval(() => updateDate('bangkok', 'date-bkk'), 60000);
-    setInterval(() => updateDate('toronto', 'date-toronto'), 60000);
+    function tickPerSecond() {
+      updateTime('bangkok', 'time-bkk');
+      updateTime('toronto', 'time-toronto');
+      updateLastUpdatedTime();
+    }
+
+    function tickPerMinute() {
+      updateDate('bangkok', 'date-bkk');
+      updateDate('toronto', 'date-toronto');
+    }
+
+    function fetchWeatherAll() {
+      fetchWeather(13.7563, 100.5018, 'weather-temp-bkk', 'weather-highlow-bkk');
+      fetchWeather(43.65107, -79.347015, 'weather-temp-toronto', 'weather-highlow-toronto');
+    }
+
+    setInterval(tickPerSecond, 1000);
+    setInterval(tickPerMinute, 60000);
     setInterval(fetchPrice, FETCH_DISPLAY_INTERVAL_MS);
-    setInterval(() => fetchWeather(13.7563, 100.5018, 'weather-temp-bkk', 'weather-highlow-bkk'), 600000);
-    setInterval(() => fetchWeather(43.65107, -79.347015, 'weather-temp-toronto', 'weather-highlow-toronto'), 600000);
-    setInterval(updateLastUpdatedTime, 1000);
+    setInterval(fetchWeatherAll, 600000);
   </script>
 </body>
 </html>
