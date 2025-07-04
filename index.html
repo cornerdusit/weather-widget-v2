@@ -5,13 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Weather-Widget-V2</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
+    :root {
+      --md-sys-color-primary: #ff9800;
+      --md-sys-color-background: #121212;
+      --md-sys-color-surface: #1e1e1e;
+      --md-sys-color-on-primary: #000000;
+      --md-sys-color-on-background: #e0e0e0;
+      --md-sys-color-on-surface: #ffffff;
+      --md-sys-color-error: #f44336;
+    }
     body {
       margin: 0;
-      background: #121212;
-      color: #e0e0e0;
-      font-family: monospace;
+      background: var(--md-sys-color-background);
+      color: var(--md-sys-color-on-background);
+      font-family: 'Roboto', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -28,6 +38,9 @@
     }
     .box {
       border: 1px solid #333;
+      border-radius: 12px;
+      background: var(--md-sys-color-surface);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -70,7 +83,10 @@
     #last-updated {
       margin-top: 4px;
       font-size: 2em;
-      color: #ff9800;
+      color: #fff;
+      background: rgba(0,0,0,0.5);
+      padding: 4px 8px;
+      border-radius: 6px;
       text-stroke: 2px black;
       text-shadow:
         2px 2px 6px rgba(0,0,0,0.8),
@@ -85,8 +101,8 @@
     }
     .time {
       font-size: 6em;
-      font-weight: bold;
-      color: #ff9800;
+      font-weight: 500;
+      color: var(--md-sys-color-primary);
     }
     .city {
       font-size: 1.5em;
@@ -94,10 +110,11 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      color: var(--md-sys-color-on-surface);
     }
     .date {
       font-size: 1.2em;
-      color: #ccc;
+      color: var(--md-sys-color-on-surface);
       margin-bottom: 2px;
     }
     .weather {
@@ -106,6 +123,7 @@
       text-align: center;
       line-height: 1.4;
       white-space: pre-line;
+      color: var(--md-sys-color-on-surface);
     }
     .temp-blue { color: #03a9f4; }
     .temp-yellow { color: #ffeb3b; }
@@ -227,7 +245,7 @@
       }
       const el = document.getElementById('last-updated');
       el.textContent = text;
-      el.style.color = (diff >= 120) ? '#f44336' : '#ccc';
+      el.style.color = (diff >= 120) ? '#f44336' : '#ffffff';
     }
 
     function loadStoredData() {
