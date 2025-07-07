@@ -32,8 +32,8 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             grid-template-rows: 1fr 1fr;
-            width: 1024px;
-            height: 600px;
+            width: 1024px; /* Retain fixed width */
+            height: 600px; /* Retain fixed height */
             gap: 2px;
         }
         .box {
@@ -42,11 +42,12 @@
             background: var(--md-sys-color-surface);
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column; /* Stack contents vertically */
+            justify-content: center; /* Center contents vertically */
+            align-items: center; /* Center contents horizontally */
             padding: 10px;
             position: relative;
+            box-sizing: border-box; /* Crucial for maintaining proportions with padding/borders */
         }
         #box-price {
             position: relative;
@@ -99,64 +100,80 @@
             max-width: 100%;
             height: auto;
         }
-        .time {
-            font-size: 6em;
-            font-weight: 500;
-            color: var(--md-sys-color-primary);
-        }
+        /* Adjusted font sizes and margins for time boxes */
         .city {
-            font-size: 1.5em;
-            margin-bottom: 10px;
+            font-size: 1.3em; /* Slightly smaller */
+            margin-bottom: 5px; /* Reduced margin */
             display: flex;
             align-items: center;
             gap: 8px;
             color: var(--md-sys-color-on-surface);
         }
         .date {
-            font-size: 1.2em;
+            font-size: 1.0em; /* Slightly smaller */
             color: var(--md-sys-color-on-surface);
-            margin-bottom: 2px;
+            margin-bottom: 2px; /* Reduced margin */
         }
-        .weather {
-            font-size: 2.8em;
+        .time {
+            font-size: 5em; /* Slightly smaller */
+            font-weight: 500;
+            color: var(--md-sys-color-primary);
+            margin-bottom: 5px; /* Reduced margin */
+        }
+
+        /* Weather styling for the main temperature line (no flex) */
+        .weather#weather-temp-bkk,
+        .weather#weather-temp-toronto {
+            font-size: 2.4em; /* Slightly smaller */
             margin-top: 2px;
             text-align: center;
-            line-height: 1.4;
+            line-height: 1.2; /* Reduced line height */
             white-space: normal;
             color: var(--md-sys-color-on-surface);
-            /* Ensure this is also a flex container to align high/low and AQI box */
-            display: flex;
-            justify-content: center;
-            align-items: baseline; /* Align at the baseline for better look */
+        }
+
+        /* Weather styling for the high/low and AQI line (is flex) */
+        .weather#weather-highlow-bkk,
+        .weather#weather-highlow-toronto {
+            font-size: 2.4em; /* Match the main temp font size, slightly smaller */
+            margin-top: 5px; /* Adjusted margin */
+            text-align: center;
+            line-height: 1.2; /* Reduced line height */
+            white-space: normal;
+            color: var(--md-sys-color-on-surface);
+            display: flex; /* Use flexbox to align content and AQI */
+            justify-content: center; /* Center horizontally */
+            align-items: baseline; /* Align at the baseline for text + box */
             flex-wrap: wrap; /* Allow wrapping if content is too wide on smaller screens */
         }
-        .temp-blue { color: #03a9f4; }
-        .temp-yellow { color: #ffeb3b; }
-        .temp-orange { color: #ff9800; }
-        .temp-red { color: #f44336; }
+
+        /* Temp color classes with !important for priority */
+        .temp-blue { color: #03a9f4 !important; }
+        .temp-yellow { color: #ffeb3b !important; }
+        .temp-orange { color: #ff9800 !important; }
+        .temp-red { color: #f44336 !important; }
 
         /* Styles for the AQI box, adjusted for inline display */
         .aqi-box {
-            display: inline-flex; /* Use inline-flex to keep it on the same line and allow centering content */
+            display: inline-flex;
             justify-content: center;
             align-items: center;
-            padding: 4px 8px; /* Reduced padding as requested */
-            border-radius: 8px; /* Slightly less rounded than 12px for compact look */
+            padding: 4px 8px;
+            border-radius: 8px;
             font-family: 'Oswald', sans-serif;
             font-weight: 700;
-            font-size: 0.6em; /* Smaller font relative to .weather for AQI number */
-            min-width: 40px; /* Adjusted min-width for compactness */
-            margin-left: 10px; /* Space from the temperature data */
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2); /* Lighter shadow */
-            vertical-align: middle; /* Align vertically with surrounding text */
-            line-height: 1; /* Remove extra space above/below text inside the box */
-            box-sizing: border-box; /* Include padding and border in the element's total width and height */
+            font-size: 0.6em; /* Relative to its parent .weather font size */
+            min-width: 40px;
+            margin-left: 10px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            vertical-align: middle;
+            box-sizing: border-box;
         }
 
         /* AQI Box color combinations */
-        .aqi-green-bg { background-color: #4CAF50; color: #FFFFFF; } /* Green background, white text */
-        .aqi-yellow-bg { background-color: #FFEB3B; color: #000000; } /* Yellow background, black text */
-        .aqi-red-bg { background-color: #F44336; color: #FFFFFF; } /* Red background, white text */
+        .aqi-green-bg { background-color: #4CAF50; color: #FFFFFF; }
+        .aqi-yellow-bg { background-color: #FFEB3B; color: #000000; }
+        .aqi-red-bg { background-color: #F44336; color: #FFFFFF; }
 
 
         @keyframes zoomPulse {
@@ -194,10 +211,10 @@
                 -webkit-text-stroke: 2px black;
                 text-stroke: 2px black;
             }
-            .time { font-size: 3em; }
-            .city { font-size: 1.2em; }
-            .date { font-size: 1em; }
-            .weather { font-size: 2em; }
+            .city { font-size: 1.1em; margin-bottom: 4px; }
+            .date { font-size: 0.9em; margin-bottom: 1px; }
+            .time { font-size: 2.8em; margin-bottom: 4px; }
+            .weather { font-size: 1.8em; margin-top: 3px; line-height: 1.3; }
             canvas {
                 width: 100% !important;
                 height: 200px !important;
@@ -207,13 +224,10 @@
                 opacity: 0.5;
             }
             .aqi-box {
-                font-size: 0.5em; /* Adjust relative font size for mobile */
-                padding: 3px 6px; /* Further reduced padding */
+                font-size: 0.5em;
+                padding: 3px 6px;
                 min-width: 30px;
                 margin-left: 8px;
-            }
-            .weather {
-                font-size: 1.8em; /* Adjusted for smaller screen */
             }
         }
 
@@ -225,10 +239,10 @@
                 -webkit-text-stroke: 1px black;
                 text-stroke: 1px black;
             }
-            .time { font-size: 2.5em; }
-            .city { font-size: 1em; }
-            .date { font-size: 0.9em; }
-            .weather { font-size: 1.5em; }
+            .city { font-size: 0.9em; margin-bottom: 3px; }
+            .date { font-size: 0.8em; margin-bottom: 0px; }
+            .time { font-size: 2.2em; margin-bottom: 3px; }
+            .weather { font-size: 1.4em; margin-top: 2px; line-height: 1.2; }
             canvas { height: 180px !important; }
             .aqi-box {
                 font-size: 0.4em;
@@ -425,9 +439,21 @@
         }
 
         function getTempColorClass(temp) {
-            if (temp < 15) return 'temp-blue';
-            if (temp <= 25) return 'temp-yellow';
-            if (temp <= 30) return 'temp-orange';
+            // These console logs are good for debugging! Keep them for now.
+            console.log(`Temperature received by getTempColorClass: ${temp}`);
+            if (temp < 15) {
+                console.log(`Assigning temp-blue (temp < 15)`);
+                return 'temp-blue';
+            }
+            if (temp <= 25) {
+                console.log(`Assigning temp-yellow (15 <= temp <= 25)`);
+                return 'temp-yellow';
+            }
+            if (temp <= 30) {
+                console.log(`Assigning temp-orange (26 <= temp <= 30)`);
+                return 'temp-orange';
+            }
+            console.log(`Assigning temp-red (temp > 30)`);
             return 'temp-red';
         }
 
@@ -441,11 +467,19 @@
                 const icon = getWeatherIcon(d.current.weather_code);
 
                 const tempEl = document.getElementById(tempElId);
+                // Log the current classes before removal
+                console.log(`Before removal for ${tempElId}: ${Array.from(tempEl.classList).join(', ')}`);
                 tempEl.classList.remove('temp-blue', 'temp-yellow', 'temp-orange', 'temp-red');
-                tempEl.classList.add(getTempColorClass(t));
+                // Log the classes after removal
+                console.log(`After removal for ${tempElId}: ${Array.from(tempEl.classList).join(', ')}`);
+
+                const newClass = getTempColorClass(t);
+                tempEl.classList.add(newClass);
+                // Log the final classes after adding
+                console.log(`After adding ${newClass} for ${tempElId}: ${Array.from(tempEl.classList).join(', ')}`);
+
                 tempEl.textContent = `${t}°C ${icon}`;
 
-                // Set initial high/low text content without AQI
                 document.getElementById(highLowElId).textContent = `L:${mn}°  H:${mx}°`;
             } catch (e) {
                 console.error('Weather error:', e);
@@ -469,7 +503,7 @@
             const t = new Date(Date.now() + offset);
             const hh = t.getHours();
             const mm = String(t.getMinutes()).padStart(2, '0');
-            const emoji = (hh >= 7 && hh >= 18) ? '🌞' : '🌚'; // Corrected emoji logic
+            const emoji = (hh >= 7 && hh <= 18) ? '🌞' : '🌚';
             document.getElementById(elId).textContent = `${String(hh).padStart(2, '0')}:${mm} ${emoji}`;
         }
 
@@ -492,7 +526,6 @@
         async function fetchAQI(city, highLowElId) {
             try {
                 const highLowEl = document.getElementById(highLowElId);
-                // Find and remove any existing AQI box element
                 const existingAqiBox = highLowEl.querySelector('.aqi-box');
                 if (existingAqiBox) {
                     existingAqiBox.remove();
@@ -509,22 +542,19 @@
                 } else {
                     console.warn(`AQI data not available for ${city}. Status: ${data.status}`);
                     aqiValue = 'N/A';
-                    aqiClass = ''; // No specific color class for N/A
+                    aqiClass = '';
                 }
 
-                // Create the AQI box (the number itself)
                 const aqiBox = document.createElement('div');
                 aqiBox.classList.add('aqi-box');
                 if (aqiClass) {
                     aqiBox.classList.add(aqiClass);
                 } else if (aqiValue === 'N/A') {
-                    // Apply a default style for N/A, e.g., grey
                     aqiBox.style.backgroundColor = '#757575';
                     aqiBox.style.color = '#FFFFFF';
                 }
                 aqiBox.textContent = aqiValue;
 
-                // Append the AQI box to the weather-highlow element
                 highLowEl.appendChild(aqiBox);
 
             } catch (e) {
@@ -536,8 +566,8 @@
                 }
                 const aqiBox = document.createElement('div');
                 aqiBox.classList.add('aqi-box');
-                aqiBox.textContent = 'Err'; // More concise error message for inline display
-                aqiBox.style.backgroundColor = '#f44336'; // Red for error
+                aqiBox.textContent = 'Err';
+                aqiBox.style.backgroundColor = '#f44336';
                 aqiBox.style.color = '#FFFFFF';
                 highLowEl.appendChild(aqiBox);
             }
@@ -547,7 +577,6 @@
         setRandomCatGif();
         fetchPrice();
 
-        // Fetch weather first, then AQI for each city using chaining
         fetchWeather(13.7563, 100.5018, 'weather-temp-bkk', 'weather-highlow-bkk')
             .then(() => fetchAQI('bangkok', 'weather-highlow-bkk'));
 
@@ -569,7 +598,6 @@
             updateDate('toronto', 'date-toronto');
         }
 
-        // Function to fetch all weather and AQI data
         async function fetchWeatherAndAQIAll() {
             await fetchWeather(13.7563, 100.5018, 'weather-temp-bkk', 'weather-highlow-bkk');
             await fetchAQI('bangkok', 'weather-highlow-bkk');
@@ -581,7 +609,7 @@
         setInterval(tickPerSecond, 1000);
         setInterval(tickPerMinute, 60000);
         setInterval(fetchPrice, FETCH_DISPLAY_INTERVAL_MS);
-        setInterval(fetchWeatherAndAQIAll, AQI_FETCH_INTERVAL_MS); // Fetch weather and AQI every 2 hours
+        setInterval(fetchWeatherAndAQIAll, AQI_FETCH_INTERVAL_MS);
     </script>
 </body>
 </html>
